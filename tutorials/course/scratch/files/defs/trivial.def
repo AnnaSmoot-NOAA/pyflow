@@ -1,0 +1,15 @@
+suite trivial
+  defstatus suspended
+  edit ECF_FILES '/scratch4/NCEPDEV/global/Anna.Smoot/Pyflow/pyflow/tutorials/course/scratch/files/trivial'
+  edit ECF_HOME '/scratch4/NCEPDEV/global/Anna.Smoot/Pyflow/pyflow/tutorials/course/scratch/out'
+  edit ECF_JOB_CMD 'bash -c 'export ECF_PORT=%ECF_PORT%; export ECF_HOST=%ECF_HOST%; export ECF_NAME=%ECF_NAME%; export ECF_PASS=%ECF_PASS%; export ECF_TRYNO=%ECF_TRYNO%; export PATH=/home/Anna.Smoot/.conda/envs/pf3.5.1/bin:$PATH; ecflow_client --init="$$" && %ECF_JOB% && ecflow_client --complete || ecflow_client --abort ' 1> %ECF_JOBOUT% 2>&1 &'
+  edit ECF_KILL_CMD 'pkill -15 -P %ECF_RID%'
+  edit ECF_STATUS_CMD 'true'
+  edit ECF_CHECK_CMD 'true'
+  edit ECF_OUT '%ECF_HOME%'
+  label exec_host "localhost"
+  label flag ""
+  task t1
+  task t2
+    trigger t1 eq complete
+endsuite

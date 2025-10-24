@@ -16,5 +16,6 @@ echo "Current working directory: $(pwd)"
 
 %nopp
 
+ecflow_client --alter=change label flag "I am set" /trivial
 
 %end

@@ -16,5 +16,6 @@ echo "Current working directory: $(pwd)"
 
 %nopp
 
+echo "I am on $(hostname) : $ECF_HOST"
 
 %end
