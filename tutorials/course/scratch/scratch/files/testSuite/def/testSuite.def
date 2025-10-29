@@ -1,0 +1,44 @@
+#5.15.1
+suite testSuite
+  edit NUMBER '100'
+  edit ECF_FILES '/scratch4/NCEPDEV/global/Anna.Smoot/Pyflow/pyflow/tutorials/course/scratch/scratch/files/testSuite/scripts'
+  edit ECF_HOME '/scratch4/NCEPDEV/global/Anna.Smoot/Pyflow/pyflow/tutorials/course/scratch/scratch/out'
+  edit ECF_JOB_CMD 'bash -c 'export ECF_PORT=%ECF_PORT%; export ECF_HOST=%ECF_HOST%; export ECF_NAME=%ECF_NAME%; export ECF_PASS=%ECF_PASS%; export ECF_TRYNO=%ECF_TRYNO%; export PATH=/home/Anna.Smoot/.conda/envs/pf3.5.1/bin:$PATH; ecflow_client --init="$$" && %ECF_JOB% && ecflow_client --complete || ecflow_client --abort ' 1> %ECF_JOBOUT% 2>&1 &'
+  edit ECF_KILL_CMD 'pkill -15 -P %ECF_RID%'
+  edit ECF_STATUS_CMD 'true'
+  edit ECF_CHECK_CMD 'true'
+  edit ECF_OUT '%ECF_HOME%'
+  label exec_host "localhost"
+  family A
+    edit ECF_FILES '/scratch4/NCEPDEV/global/Anna.Smoot/Pyflow/pyflow/tutorials/course/scratch/scratch/files/testSuite/scripts/A'
+    family Aa
+      edit ECF_FILES '/scratch4/NCEPDEV/global/Anna.Smoot/Pyflow/pyflow/tutorials/course/scratch/scratch/files/testSuite/scripts/A/Aa'
+      task Aa1
+        edit NUMBER '101'
+    endfamily
+    family Ab
+      edit ECF_FILES '/scratch4/NCEPDEV/global/Anna.Smoot/Pyflow/pyflow/tutorials/course/scratch/scratch/files/testSuite/scripts/A/Ab'
+      task Ab1
+        trigger ../Aa/Aa1 eq complete
+        edit NUMBER '101'
+      task Ab2
+        trigger Ab1 eq complete
+        edit NUMBER '50.0'
+    endfamily
+    task A1
+      trigger Ab/Ab2 eq complete
+      edit NUMBER '101'
+  endfamily
+  family B
+    edit ECF_FILES '/scratch4/NCEPDEV/global/Anna.Smoot/Pyflow/pyflow/tutorials/course/scratch/scratch/files/testSuite/scripts/B'
+    family Ba
+      edit ECF_FILES '/scratch4/NCEPDEV/global/Anna.Smoot/Pyflow/pyflow/tutorials/course/scratch/scratch/files/testSuite/scripts/B/Ba'
+      task Ba1
+        trigger ../B1 eq complete
+        edit NUMBER '25.0'
+    endfamily
+    task B1
+      edit NUMBER '25.0'
+  endfamily
+endsuite
+# enddef
