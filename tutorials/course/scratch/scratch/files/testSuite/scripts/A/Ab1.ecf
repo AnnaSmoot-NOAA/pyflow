@@ -18,6 +18,6 @@ echo "Current working directory: $(pwd)"
 
 %nopp
 
-echo family_Ab2 NUMBER=$NUMBER
+echo family_Ab1 NUMBER=$NUMBER
 
 %end
